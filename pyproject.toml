@@ -1,22 +1,18 @@
 [project]
 name = "library-api"
 version = "0.1.0"
-description = "Add your description here"
+description = "REST API для управления книгами и авторами"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "celery>=5.6.2",
-    "coverage>=7.13.4",
     "django>=6.0.2",
     "django-filter>=25.2",
     "djangorestframework>=3.16.1",
     "djangorestframework-simplejwt>=5.5.1",
     "drf-spectacular>=0.29.0",
-    "factory-boy>=3.3.3",
     "gunicorn>=25.1.0",
     "psycopg2-binary>=2.9.11",
-    "pytest>=9.0.2",
-    "pytest-django>=4.12.0",
     "python-dotenv>=1.2.2",
     "redis>=7.2.1",
 ]
