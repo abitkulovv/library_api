@@ -193,3 +193,57 @@ library_api/
 ├── manage.py
 └── pyproject.toml
 ```
+
+
+
+---
+
+## ER Диаграмма
+
+```mermaid
+erDiagram
+    USER {
+        bigint id PK
+        varchar username
+        varchar email
+        varchar password
+        bool is_active
+        bool is_staff
+    }
+
+    AUTHOR {
+        bigint id PK
+        varchar first_name
+        varchar last_name
+        text biography
+        date date_of_birth
+        date date_of_death
+    }
+
+    BOOK {
+        bigint id PK
+        varchar title
+        text summary
+        varchar isbn
+        date publication_date
+        varchar genre
+        datetime created_at
+    }
+
+    BOOK_AUTHORS {
+        bigint book_id FK
+        bigint author_id FK
+    }
+
+    FAVORITE {
+        bigint id PK
+        bigint user_id FK
+        bigint book_id FK
+        datetime created_at
+    }
+
+    USER ||--o{ FAVORITE : "has"
+    BOOK ||--o{ FAVORITE : "in"
+    BOOK ||--o{ BOOK_AUTHORS : "written by"
+    AUTHOR ||--o{ BOOK_AUTHORS : "writes"
+```
