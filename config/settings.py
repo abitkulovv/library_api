@@ -3,6 +3,8 @@ import os
 from datetime import timedelta
 from dotenv import load_dotenv
 
+from celery.schedules import crontab
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -159,6 +161,18 @@ CELERY_ACCEPT_CONTENT = os.getenv("CELERY_ACCEPT_CONTENT")
 CELERY_TASK_SERIALIZER = os.getenv("CELERY_TASK_SERIALIZER")
 CELERY_RESULT_SERIALIZER = os.getenv("CELERY_RESULT_SERIALIZER")
 CELERY_TIMEZONE = os.getenv("CELERY_TIMEZONE")
+
+
+CELERY_BEAT_SCHEDULE = {
+    "send-new-books-daily": {
+        "task": "apps.books.tasks.send_new_books_notifications",
+        "schedule": crontab(hour=9, minute=0), 
+    },
+    "send-anniversary-books-daily": {
+        "task": "apps.books.tasks.send_anniversary_books_notifications",
+        "schedule": crontab(hour=9, minute=0),  
+    },
+}
 
 
 
