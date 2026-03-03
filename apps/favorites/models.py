@@ -1,15 +1,20 @@
 from django.db import models
-from apps.users.models import User
+from django.conf import settings
 from apps.books.models import Book
 
 class Favorite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="favorites")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="favorites"
+    )
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="favorited_by")
-    added_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ("user", "book")
-        ordering = ["-added_at"]
+        indexes = [models.Index(fields=["user", "book"]),]
+        ordering = ["-created_at"]
 
     def __str__(self):
         return f"{self.user.username} -> {self.book.title}"
